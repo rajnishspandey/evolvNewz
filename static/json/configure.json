@@ -1,0 +1,14 @@
+{
+    "countries": [
+      {"name": "India", "value": "IN"},
+      {"name": "USA", "value": "US"}
+    ],
+    "category":[
+      {"name":"All News", "value": ""},
+      {"name": "Technology", "value": "Technology"},
+      {"name": "AI", "value": "AI"},
+      {"name": "Sports", "value": "Sports"},
+      {"name": "Politics", "value": "Politics"}
+    ]
+  }
+  

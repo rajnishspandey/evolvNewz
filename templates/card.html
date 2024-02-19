@@ -1,0 +1,18 @@
+<!-- Body Content -->
+<div class="col mb-4">
+    <div class="card border-dark cardShadow">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">{{ result.category }}</h5>
+        </div>
+        <div class="card-body bg-light" style="border-radius: 5px;">
+            <p class="card-text cardContent">{{ result.news_text }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <small class="text-muted">{{ result.published_date_time_ist }}</small>
+                <div>
+                    <a href="{{ result.news_url }}" target="_blank" class="btn btn-dark btn-sm">Read More</a>
+                    <a href="https://x.com/intent/tweet?text={{ result.news_text }}" target="_blank" class="btn btn-dark btn-sm">Post on X</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Protest+Riot&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 65px;
+    background-color: #eeeeea;
+    font-family: "Protest Riot", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 1px;
+}
+
+.container {
+    flex: 1;
+    margin-top: 25px; 
+}
+
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem;
+    position: sticky;
+    bottom: 0;
+    font-family: "PT Serif", serif;
+    font-style: normal;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+}
+
+#top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 25px;
+  }
+  
+  /* #top:hover {
+    background-color: #555;
+  } */
+  
+  p.cardContent{
+    font-family: "PT Serif", serif;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+  }
+
+  /* .cardShadow{
+    background-color: beige; 
+    box-shadow: 4px 4px 8px 0 rgba(0,0,0,0.5);
+  }  */
+
+.logo{
+    color: white;
+    font-family: "PT Serif", serif;
+    font-style: normal;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    box-shadow: 0px 1px 0px 0px yellow;
+    padding: 5px 5px 5px;
+}
+
+.cardShadow{
+    background-color: #eeeeea; 
+    box-shadow: 5px 5px yellow;
+  } 
+
+ /* @media (max-width: 768px){
+    .cardShadow{
+        min-height: 250px;
+    }
+ } */
+
+ @media (min-width: 768px) and (max-width:992px){
+    .cardShadow{
+        min-height: 250px;
+    }
+ }
+
+ @media (min-width: 992px){
+    .cardShadow{
+        min-height: 200px;
+    }
+ }
+

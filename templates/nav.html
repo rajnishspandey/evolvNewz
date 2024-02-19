@@ -1,0 +1,33 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+            <strong class="logo">EVOLV</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <!-- Add other nav items here -->
+            </ul>    
+            <form class="d-flex me-2" method="post" action="{{ url_for('index') }}">
+                <select class="form-select me-2" name="cnt">
+                    {% for country in configure['countries'] %}
+                        <option value="{{ country['value'] }}">{{ country['name'] }}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="form-select me-2" name="ctgry">
+                    {% for category in configure['category'] %}
+                        <option value="{{ category['value'] }}">{{ category['name'] }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-outline-light" type="submit">Find</button>
+            </form>
+        </div>
+    </div>
+</nav>
