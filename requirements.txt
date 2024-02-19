@@ -1,6 +1,4 @@
 flask
 feedparser
-datetime
-urllib
 pytz
 gunicorn
