@@ -3,3 +3,4 @@ feedparser
 pytz
 gunicorn
 flask_mail
+smtplib
