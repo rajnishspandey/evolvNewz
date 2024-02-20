@@ -1,7 +1,8 @@
 {
     "countries": [
       {"name": "India", "value": "IN"},
-      {"name": "USA", "value": "US"}
+      {"name": "USA", "value": "US"},
+      {"name": "UK", "value": "UK"}
     ],
     "category":[
       {"name":"All News", "value": ""},
