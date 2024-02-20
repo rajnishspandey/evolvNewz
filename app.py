@@ -40,18 +40,6 @@ def index():
     processed_results = []
 
     for entry in feed.entries:
-        image_url = None
-        # Check if 'media_thumbnail' is present in the entry
-        if 'media_thumbnail' in entry:
-            # Attempt to get the URL of the first thumbnail
-            image_url = entry.media_thumbnail[0]['url']
-        elif 'links' in entry:
-            # Look for an image link in 'links'
-            for link in entry.links:
-                if link.type == 'image/jpeg':
-                    image_url = link.href
-                    break
-
         # Convert GMT time to IST with offset
         gmt_time = datetime.strptime(entry.published, "%a, %d %b %Y %H:%M:%S %Z")
         ist_date_time_str = convert_gmt_to_ist(gmt_time)
@@ -59,7 +47,6 @@ def index():
         processed_results.append({
             'news_url': entry.link,
             'news_text': entry.title,
-            'news_image_url': image_url,
             'published_date_time_gmt': gmt_time,  # Original GMT time
             'published_date_time_ist': ist_date_time_str + ' IST',
             'category': category if category else "All News"
