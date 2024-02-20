@@ -2,3 +2,4 @@ flask
 feedparser
 pytz
 gunicorn
+flask_mail

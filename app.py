@@ -1,11 +1,14 @@
-from flask import Flask, render_template, json, request, make_response
+from flask import Flask, render_template, json, request, make_response, redirect, url_for,flash
 import feedparser
-from datetime import datetime, timedelta
+from datetime import datetime
 from urllib.parse import quote
-from string_literals import JSON_PATH
-from validate import convert_gmt_to_ist
+from string_literals import JSON_PATH,INDEX_TITLE,FEEDBACK_TITLE
+from validate import convert_gmt_to_ist, send_email
+import secrets
+from flask.helpers import get_flashed_messages 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -64,25 +67,32 @@ def index():
 
     # Sort the processed_results by published date in descending order
     processed_results = sorted(processed_results, key=lambda x: x['published_date_time_gmt'], reverse=True)
+    
+    flash_messages = []  # Initialize an empty list
 
-    return render_template('index.html', processed_results=processed_results, configure=configure)
+    # Check if there are flash messages
+    flash_messages = get_flashed_messages(category_filter=['success'])
+    
+    return render_template('index.html', 
+                           processed_results=processed_results, 
+                           configure=configure,
+                           title=INDEX_TITLE,
+                           flash_messages=flash_messages
+                           )
 
-@app.route('/sitemap.xml', methods=['GET'])
-def sitemap():
-    pages = []
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback():
+    if request.method == 'POST':
+        feedback_name = request.form['name'][:50]
+        feedback_text = request.form['feedback'][:250]
+        send_email(feedback_name,feedback_text)
 
-    # Add the main page to the sitemap
-    pages.append({'url': 'index', 'lastmod': datetime.now().strftime('%Y-%m-%d')})
+        # Use the 'success' category for the flash message
+        flash('Your Feedback is our motivation towards improvement', 'success')
 
-    # Add other pages dynamically if needed
-    # pages.append({'url': 'other_page', 'lastmod': datetime.now().strftime('%Y-%m-%d')})
+        return redirect(url_for('index'))
 
-    sitemap_xml = render_template('sitemap_template.xml', pages=pages)
-
-    response = make_response(sitemap_xml)
-    response.headers["Content-Type"] = "application/xml"
-
-    return response
+    return render_template('feedback.html', title=FEEDBACK_TITLE)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
