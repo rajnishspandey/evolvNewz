@@ -3,4 +3,4 @@ feedparser
 pytz
 gunicorn
 flask_mail
-dotenv
+python-dotenv
