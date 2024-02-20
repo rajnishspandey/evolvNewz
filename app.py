@@ -1,4 +1,4 @@
-from flask import Flask, render_template, json, request, make_response, redirect, url_for,flash
+from flask import Flask, render_template, json, request, redirect, url_for,flash
 import feedparser
 from datetime import datetime
 from urllib.parse import quote
