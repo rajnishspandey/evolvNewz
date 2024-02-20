@@ -12,8 +12,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('feedback') }}">Feedback</a>
+                </li>
                 <!-- Add other nav items here -->
-            </ul>    
+            </ul>
+            {% if request.endpoint == 'index' %} 
             <form class="d-flex me-2" method="post" action="{{ url_for('index') }}">
                 <select class="form-select me-2" name="cnt">
                     {% for country in configure['countries'] %}
@@ -28,6 +33,7 @@
                 </select>
                 <button class="btn btn-outline-light" type="submit">Find</button>
             </form>
+            {% endif %}
         </div>
     </div>
 </nav>

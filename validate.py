@@ -1,4 +1,14 @@
 import pytz
+import smtplib
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+
+from string_literals import JSON_PATH
+from flask.helpers import get_flashed_messages
 
 def add_ordinal(day):
     if 10 <= day % 100 <= 20:
@@ -18,3 +28,12 @@ def convert_gmt_to_ist(gmt_time):
     ist_time_str = ist_time.strftime(f"{add_ordinal(ist_time.day)}-{ist_time.strftime('%b')[:3]}-%y %H:%M").lower()
 
     return ist_time_str
+
+# Function to send email
+def send_email(feedback_name,feedback_text):
+    subject = f"Feedback Submission from {feedback_name}"
+    body = f"Feedback: {feedback_text}"
+    with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        server.starttls()
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, f"Subject: {subject}\n\n{body}")
