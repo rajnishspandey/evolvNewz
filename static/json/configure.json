@@ -8,6 +8,7 @@
       {"name":"All News", "value": ""},
       {"name": "Technology", "value": "Technology"},
       {"name": "AI", "value": "AI"},
+      {"name": "Finance", "value": "Finance"},
       {"name": "Sports", "value": "Sports"},
       {"name": "Politics", "value": "Politics"}
     ]
