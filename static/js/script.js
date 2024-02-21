@@ -1,3 +1,4 @@
+// top button
 var topButton = document.getElementById("top");
 
 window.onscroll = function() {
@@ -12,5 +13,112 @@ function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
+
+// loader
+
+var cardTemplate = `
+    <div class="col mb-4">
+        <div class="card border-dark cardShadow">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">\${result.category}</h5>
+            </div>
+            <div class="card-body bg-light" style="border-radius: 5px;">
+                <p class="card-text cardContent">\${result.news_text}</p>
+                <div class="d-flex flex-wrap justify-content-between align-items-center mt-3">
+                    <small class="text-muted">\${result.published_date_time_ist}</small>
+                    <div>
+                        <a href="\${result.news_url}" target="_blank" class="btn btn-dark btn-sm mr-2 mb-2 mb-sm-0">Read More</a>
+                        <a href="https://x.com/intent/tweet?text=\${encodeURIComponent(result.news_text)}" target="_blank" class="btn btn-dark btn-sm mr-2 mb-2 mb-sm-0">Post on X</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+var page = 1;
+var cardsPerPage = 10;
+var isLoading = false;
+var uniqueIdentifiers = new Set(); // Set to store unique identifiers
+
+function loadMore() {
+    if (isLoading) {
+        return;
+    }
+
+    isLoading = true;
+
+    $.get('/load_more', { page: page }, function (data) {
+        var cardContainer = $('#card-container');
+        var loader = $('#loader');
+
+        if (data.results.length > 0) {
+            // Clear the existing content if it's the first page
+            if (page === 1) {
+                cardContainer.empty();
+                uniqueIdentifiers.clear();
+            }
+
+            var endIndex = Math.min(cardsPerPage, data.results.length);
+
+            for (var i = 0; i < endIndex; i++) {
+                var result = data.results[i];
+                var identifier = result.news_url; // or any other unique identifier
+
+                // Check for duplicates
+                if (!uniqueIdentifiers.has(identifier)) {
+                    var cardHtml = cardTemplate
+                        .replace('${result.category}', result.category)
+                        .replace('${result.news_text}', result.news_text)
+                        .replace('${result.published_date_time_ist}', result.published_date_time_ist)
+                        .replace('${result.news_url}', result.news_url)
+                        .replace('${result.news_text_urlencoded}', encodeURIComponent(result.news_text));
+
+                    cardContainer.append(cardHtml);
+
+                    // Add the identifier to the set
+                    uniqueIdentifiers.add(identifier);
+                }
+            }
+
+            page++;
+        } else {
+            loader.hide();
+            $(window).off('scroll');
+        }
+
+        isLoading = false;
+    });
+}
+
+$(document).ready(function () {
+    // Initial load only 10 cards
+    loadMore();
+
+    // Infinite scroll
+    $(window).on('scroll', function () {
+        // Check if the user has scrolled to the bottom of the page
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
+            // Show the loader when reaching the bottom
+            $('#loader').show();
+            loadMore();
+        }
+    });
+});
+
+$(document).ready(function () {
+    // Initial load only 10 cards
+    loadMore();
+
+    // Infinite scroll
+    $(window).on('scroll', function () {
+        // Check if the user has scrolled to the bottom of the page
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
+            // Show the loader when reaching the bottom
+            $('#loader').show();
+            loadMore();
+        }
+    });
+});
 
 
