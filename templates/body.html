@@ -6,13 +6,9 @@
         </div>
     {% endfor %}
      
-    <div class="row row-cols-1 row-cols-md-2" id="card-container">
+    <div class="row row-cols-1 row-cols-md-2">
         {% for result in processed_results %}
             {% include 'card.html' %}
         {% endfor %}
     </div>
-    <div id="loader" class="text-center mt-3">
-        loading..
-    </div>
-
 </div> 

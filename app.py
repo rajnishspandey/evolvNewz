@@ -12,7 +12,6 @@ app.secret_key = secrets.token_hex(16)
 def index():
     
     processed_results,configure = getResult()
-
     # Sort the processed_results by published date in descending order
     processed_results = getNewsProcessed(processed_results)
     
@@ -42,22 +41,6 @@ def feedback():
         return redirect(url_for('index'))
 
     return render_template('feedback.html', title=FEEDBACK_TITLE)
-
-
-@app.route('/load_more', methods=['GET'])
-def load_more():
-    page = int(request.args.get('page', 1))
-    items_per_page = 10
-    start_index = (page - 1) * items_per_page
-    end_index = start_index + items_per_page
-
-    processed_results,_ = getResult()
-    processed_results = getNewsProcessed(processed_results)
-    
-    results_to_return = processed_results[start_index:end_index]
-
-    return jsonify({'results': results_to_return})
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

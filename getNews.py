@@ -5,6 +5,7 @@ from datetime import datetime
 from validate import convert_gmt_to_ist
 from string_literals import JSON_PATH
 
+
 def getResult():
     # Read configure from JSON file
     with open(JSON_PATH, 'r') as file:
@@ -44,7 +45,6 @@ def getResult():
         })
 
     return processed_results, configure
-
 
 def getNewsProcessed(processed_results):
     processed_results = sorted(processed_results, key=lambda x: x['published_date_time_gmt'], reverse=True)
