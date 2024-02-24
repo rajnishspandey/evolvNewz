@@ -14,21 +14,25 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('feedback') }}">Feedback</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('feedback') }} ">Feedback</a>
                 </li>
-                <!-- Add other nav items here -->
             </ul>
+
             {% if request.endpoint == 'index' %} 
             <form class="d-flex me-2" method="post" action="{{ url_for('index') }}">
                 <select class="form-select me-2" name="cnt">
                     {% for country in configure['countries'] %}
-                        <option value="{{ country['value'] }}">{{ country['name'] }}</option>
+                    <option value="{{ country['gl'] }}" {% if country['gl'] == request.form.get('cnt', configure['countries'][0]['gl']) %} selected {% endif %}>
+                        {{ country['name'] }}
                     {% endfor %}
+                    </option>
                 </select>
 
                 <select class="form-select me-2" name="ctgry">
                     {% for category in configure['category'] %}
-                        <option value="{{ category['value'] }}">{{ category['name'] }}</option>
+                    <option value="{{ category['value'] }}" {% if category['value'] == request.form.get('ctgry', configure['category'][0]['value']) %} selected {% endif %}>
+                        {{ category['name'] }}
+                    </option>
                     {% endfor %}
                 </select>
                 <button class="btn btn-outline-light" type="submit">Find</button>

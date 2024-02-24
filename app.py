@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, json, request, redirect, url_for,flash
 import feedparser
 from datetime import datetime
 from urllib.parse import quote
 from string_literals import JSON_PATH,INDEX_TITLE,FEEDBACK_TITLE
 from validate import convert_gmt_to_ist, send_email
+=======
+from flask import Flask, render_template, request, redirect, url_for,flash,jsonify,render_template_string
+from string_literals import INDEX_TITLE,FEEDBACK_TITLE, SUCCESS_FEEDBACK_MESSAGE, SUCCESS, CHARACTERS_ERROR_MESSAGE, ERROR, FEEDBACK_FORM_VALIDATION_ERROR
+from validate import is_valid_input, send_email
+>>>>>>> release/2
 import secrets
 from flask.helpers import get_flashed_messages 
 
@@ -12,6 +18,7 @@ app.secret_key = secrets.token_hex(16)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+<<<<<<< HEAD
     # Read configure from JSON file
     with open(JSON_PATH, 'r') as file:
         configure = json.load(file)
@@ -52,6 +59,10 @@ def index():
             'category': category if category else "All News"
         })
 
+=======
+    
+    processed_results,configure = getResult()
+>>>>>>> release/2
     # Sort the processed_results by published date in descending order
     processed_results = sorted(processed_results, key=lambda x: x['published_date_time_gmt'], reverse=True)
     
@@ -70,14 +81,19 @@ def index():
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
     if request.method == 'POST':
-        feedback_name = request.form['name'][:50]
-        feedback_text = request.form['feedback'][:250]
-        send_email(feedback_name,feedback_text)
+        feedback_name = request.form['name']
+        feedback_text = request.form['feedback']
 
-        # Use the 'success' category for the flash message
-        flash('Your Feedback is our motivation towards improvement', 'success')
+        if is_valid_input(feedback_name, feedback_text):
+            send_email(feedback_name, feedback_text)
+            flash(SUCCESS_FEEDBACK_MESSAGE, SUCCESS)
+            return redirect(url_for('index'))
+        else:
+            if len(feedback_text.strip()) > 250:
+                flash(CHARACTERS_ERROR_MESSAGE, ERROR)
+            else:
+                flash(FEEDBACK_FORM_VALIDATION_ERROR, ERROR)
 
-        return redirect(url_for('index'))
 
     return render_template('feedback.html', title=FEEDBACK_TITLE)
 
