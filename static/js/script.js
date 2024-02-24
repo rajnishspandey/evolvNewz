@@ -1,4 +1,3 @@
-// top button
 var topButton = document.getElementById("top");
 
 window.onscroll = function() {
@@ -12,6 +11,9 @@ window.onscroll = function() {
 function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
+<<<<<<< HEAD
+}
+=======
 }
 
 // validate feedback form
@@ -48,3 +50,4 @@ function validateForm() {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
+>>>>>>> release/2
