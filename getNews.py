@@ -3,35 +3,69 @@ import feedparser
 from urllib.parse import quote
 from datetime import datetime
 from validate import convert_gmt_to_ist
-from string_literals import JSON_PATH, BASE_URL, POST_ON_X_URL
+from string_literals import JSON_PATH, BASE_URL, POST_ON_X_URL, GEO_LOCATION
+import urllib.request
+import json
+import ssl
+
+ssl_context = ssl._create_unverified_context()
+def get_location():
+    with urllib.request.urlopen(GEO_LOCATION, context=ssl_context) as url:
+        geo_data = json.loads(url.read().decode())
+
+    location_data = {
+        "country_code": geo_data.get('country_code'),
+        "country_name": geo_data.get('country_name'),
+        # "city": geo_data.get('city'),
+        # "postal": geo_data.postal,
+        # "latitude":geo_data.latitude,
+        # "IPv4":geo_data.IPv4,
+        # "state": geo_data.state
+    }
+
+    return location_data
 
 def getResult():
     # Read configure from JSON file
     with open(JSON_PATH, 'r') as file:
         configure = json.load(file)
 
-    # Get values from the form submission or request
+    geo_location = get_location()
+    
+    geo_country_code = geo_location.get('country_code')
     country = request.form.get('cnt', request.args.get('cnt', None))
     category = request.form.get('ctgry', request.args.get('ctgry', None))
-
-    selected_country = next((c for c in configure['countries'] if c['gl'] == country), None)
-    language_param = selected_country.get('hl', 'en') if selected_country else 'en'
-
-    # Encode the category to handle spaces and special characters
     encoded_category = quote(category, safe='') if category else ''
-
-    # Construct the base URL
     base_url = BASE_URL
 
-    # Construct parameters based on conditions
-    rss_feed_url = (
-        f"{base_url}/search?q={encoded_category}" if not country and category else
-        f"{base_url}?hl={country}&gl={country}&ceid={country}" if country and not category else
-        f"{base_url}/search?q={encoded_category}&hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and category else
-        base_url
-    )
+    if geo_country_code:
+        selected_country = next((c for c in configure['countries'] if c['gl'] == geo_country_code), None)
+        language_param = selected_country.get('hl', 'en') if selected_country else 'en'
+        
+        # Construct parameters based on conditions
+        rss_feed_url = (
+            f"{base_url}?hl={language_param}-{geo_country_code}&gl={geo_country_code}&ceid={geo_country_code}:{language_param}" if geo_country_code and not category else
+            f"{base_url}/search?q={encoded_category}&hl={language_param}-{geo_country_code}&gl={geo_country_code}&ceid={geo_country_code}:{language_param}" if geo_country_code and category else
+            base_url
+        )
+        print(f"geo_country_code :- {geo_country_code}")
+        print(f"language_param :- {language_param}")
+        feed = feedparser.parse(rss_feed_url)
+        print(f"inside if :- {rss_feed_url}")
+        
+    else:
+        selected_country = next((c for c in configure['countries'] if c['gl'] == country), None)
+        language_param = selected_country.get('hl', 'en') if selected_country else 'en'
 
-    feed = feedparser.parse(rss_feed_url)
+        # Construct parameters based on conditions
+        rss_feed_url = (
+            f"{base_url}/search?q={encoded_category}" if not country and category else
+            f"{base_url}?hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and not category else
+            f"{base_url}/search?q={encoded_category}&hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and category else
+            base_url
+        )
+        print(f"inside else : - {rss_feed_url}")
+        feed = feedparser.parse(rss_feed_url)
     
     processed_results = []
 
