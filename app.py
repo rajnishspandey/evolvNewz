@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,flash,jsonify,render_template_string
+from flask import Flask, render_template, request, redirect, url_for,flash
 from string_literals import INDEX_TITLE,FEEDBACK_TITLE, SUCCESS_FEEDBACK_MESSAGE, SUCCESS, CHARACTERS_ERROR_MESSAGE, ERROR, FEEDBACK_FORM_VALIDATION_ERROR
 from validate import is_valid_input, send_email
 import secrets
