@@ -33,39 +33,23 @@ def getResult():
     geo_location = get_location()
     
     geo_country_code = geo_location.get('country_code')
-    country = request.form.get('cnt', request.args.get('cnt', None))
+    country = request.form.get('cnt', request.args.get('cnt', geo_country_code))
     category = request.form.get('ctgry', request.args.get('ctgry', None))
     encoded_category = quote(category, safe='') if category else ''
     base_url = BASE_URL
 
-    if geo_country_code:
-        selected_country = next((c for c in configure['countries'] if c['gl'] == geo_country_code), None)
-        language_param = selected_country.get('hl', 'en') if selected_country else 'en'
-        
-        # Construct parameters based on conditions
-        rss_feed_url = (
-            f"{base_url}?hl={language_param}-{geo_country_code}&gl={geo_country_code}&ceid={geo_country_code}:{language_param}" if geo_country_code and not category else
-            f"{base_url}/search?q={encoded_category}&hl={language_param}-{geo_country_code}&gl={geo_country_code}&ceid={geo_country_code}:{language_param}" if geo_country_code and category else
-            base_url
-        )
-        print(f"geo_country_code :- {geo_country_code}")
-        print(f"language_param :- {language_param}")
-        feed = feedparser.parse(rss_feed_url)
-        print(f"inside if :- {rss_feed_url}")
-        
-    else:
-        selected_country = next((c for c in configure['countries'] if c['gl'] == country), None)
-        language_param = selected_country.get('hl', 'en') if selected_country else 'en'
+    selected_country = next((c for c in configure['countries'] if c['gl'] == country), None)
+    language_param = selected_country.get('hl', 'en') if selected_country else 'en'
 
-        # Construct parameters based on conditions
-        rss_feed_url = (
-            f"{base_url}/search?q={encoded_category}" if not country and category else
-            f"{base_url}?hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and not category else
-            f"{base_url}/search?q={encoded_category}&hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and category else
-            base_url
-        )
-        print(f"inside else : - {rss_feed_url}")
-        feed = feedparser.parse(rss_feed_url)
+    # Construct parameters based on conditions
+    rss_feed_url = (
+        f"{base_url}/search?q={encoded_category}" if not country and category else
+        f"{base_url}?hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and not category else
+        f"{base_url}/search?q={encoded_category}&hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and category else
+        base_url
+    )
+    print(f"inside else : - {rss_feed_url}")
+    feed = feedparser.parse(rss_feed_url)
     
     processed_results = []
 
