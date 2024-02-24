@@ -8,3 +8,4 @@ CHARACTERS_ERROR_MESSAGE = "Only 250 characters are allowed for the feedback and
 ERROR = "error"
 FEEDBACK_FORM_VALIDATION_ERROR = "Both Name and Feedback are mandatory. Please fill them in"
 POST_ON_X_URL = "https://x.com/intent/tweet?text="
+GEO_LOCATION = "https://geolocation-db.com/json"
