@@ -29,6 +29,11 @@ def convert_gmt_to_ist(gmt_time):
 
     return ist_time_str
 
+
+def is_valid_input(name, feedback):
+    validate_input = name.strip() != '' and feedback.strip() != '' and len(feedback.strip()) <= 250 and len(name.strip()) <= 30
+    return validate_input
+
 # Function to send email
 def send_email(feedback_name,feedback_text):
     subject = f"Feedback Submission from {feedback_name}"

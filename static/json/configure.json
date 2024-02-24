@@ -1,8 +1,12 @@
 {
     "countries": [
-      {"name": "India", "value": "IN"},
-      {"name": "USA", "value": "US"},
-      {"name": "UK", "value": "UK"}
+      {"name": "My Country" , "hl":"", "gl": "", "en":""},
+      {"name": "India" , "hl":"en", "gl": "IN", "en":"en"},
+      {"name": "USA","hl":"en", "gl": "US", "en":"en"},
+      {"name": "United Kingdom", "hl":"en", "gl": "GB", "en":"en"},
+      {"name": "Canada", "hl":"en", "gl": "CA", "en":"en"},
+      {"name": "Australia",  "hl":"en", "gl": "AU", "en":"en"},
+      {"name": "Germany", "hl":"de","gl": "DE", "en":"de" }
     ],
     "category":[
       {"name":"All News", "value": ""},
