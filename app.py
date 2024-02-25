@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for,flash, json
-from string_literals import INDEX_TITLE,FEEDBACK_TITLE, SUCCESS_FEEDBACK_MESSAGE, SUCCESS, CHARACTERS_ERROR_MESSAGE, ERROR, FEEDBACK_FORM_VALIDATION_ERROR
+from string_literals import INDEX_TITLE,FEEDBACK_TITLE, SUCCESS_FEEDBACK_MESSAGE, SUCCESS, CHARACTERS_ERROR_MESSAGE, ERROR, FEEDBACK_FORM_VALIDATION_ERROR, ERROR_TITLE
 from validate import is_valid_input, send_email
 import secrets
 from flask.helpers import get_flashed_messages 
@@ -49,6 +49,31 @@ def feedback():
 
     return render_template('feedback.html', title=FEEDBACK_TITLE)
 
+# Custom error handler for 404 Not Found
+# Custom error handler for both 404 Not Found and 500 Internal Server Error
+@app.errorhandler(404)
+@app.errorhandler(500)
+def error_handler(error):
+    error_title = 'Error'
+    if error.code == 404:
+        error_title = '404 Not Found'
+        error_message = """
+        The requested URL was not found on the server. 
+        If you entered the URL manually, please check your spelling and try again.
+        OR Just click on below button
+        """
+    else:
+        error_message = """
+        Oops! Something went wrong on our end. We\'re working to fix this issue. Please try again later.
+        OR Just click on below button
+        """
+
+    return render_template('error.html', error_title=error_title, error_message=error_message , title=ERROR_TITLE), error.code
+
+@app.route('/simulate_error')
+def simulate_error():
+    # Simulate a situation where an error occurs (e.g., division by zero)
+    result = 1 / 0  # This will raise a ZeroDivisionError
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=False)

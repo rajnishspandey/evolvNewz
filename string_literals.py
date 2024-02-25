@@ -1,6 +1,7 @@
 JSON_PATH = "static/json/configure.json"
 INDEX_TITLE = "EVOLV Newz - Home"
 FEEDBACK_TITLE = "EVOLV Newz - Feedback"
+ERROR_TITLE = "EVOLV Newz - ERROR"
 BASE_URL = "https://news.google.com/rss"
 SUCCESS_FEEDBACK_MESSAGE = "Your Feedback is our motivation towards improvement" 
 SUCCESS = "success"

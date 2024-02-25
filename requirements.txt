@@ -1,4 +1,5 @@
-flask
+Flask[async]
+Flask-Apscheduler
 feedparser
 pytz
 gunicorn
