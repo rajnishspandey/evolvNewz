@@ -9,3 +9,6 @@
 > beta release 1.3.5
 >>  added Zimbabwe in the list and Bussines category
 >> updated the code which will not redirect to google if url found it will directly go to source url other wise through google
+
+> beta release 1.3.6
+>>  improved performance of the code
