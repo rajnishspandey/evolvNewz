@@ -6,7 +6,8 @@
       {"name": "United Kingdom", "hl":"en", "gl": "GB", "en":"en"},
       {"name": "Canada", "hl":"en", "gl": "CA", "en":"en"},
       {"name": "Australia",  "hl":"en", "gl": "AU", "en":"en"},
-      {"name": "Germany", "hl":"de","gl": "DE", "en":"de" }
+      {"name": "Germany", "hl":"de","gl": "DE", "en":"de" },
+      {"name": "Zimbabwe", "hl":"en","gl": "ZW", "en":"en" }
     ],
     "category":[
       {"name":"All News", "value": ""},
@@ -14,7 +15,8 @@
       {"name": "AI", "value": "AI"},
       {"name": "Finance", "value": "Finance"},
       {"name": "Sports", "value": "Sports"},
-      {"name": "Politics", "value": "Politics"}
+      {"name": "Politics", "value": "Politics"},
+      {"name": "Business", "value": "Business"}
     ]
   }
   
