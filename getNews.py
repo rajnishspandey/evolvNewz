@@ -8,7 +8,7 @@ import urllib.request
 import json
 import ssl
 import requests
-import concurrent.futures
+# import concurrent.futures
 
 ssl_context = ssl._create_unverified_context()
 
@@ -58,31 +58,31 @@ def getResult():
     processed_results = []
 
     # Use a session for connection reuse
-    with requests.Session() as session:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-            futures = [executor.submit(fetch_content, entry.link, session) for entry in feed.entries]
+    # with requests.Session() as session:
+    #     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    #         futures = [executor.submit(fetch_content, entry.link, session) for entry in feed.entries]
 
-            for entry, future in zip(feed.entries, concurrent.futures.as_completed(futures)):
-                try:
-                    content_url = future.result()
-                except Exception as e:
-                    content_url = entry.link
+            # for entry, future in zip(feed.entries, concurrent.futures.as_completed(futures)):
+            #     try:
+            #         content_url = future.result()
+            #     except Exception as e:
+            #         content_url = entry.link
+    for entry in feed.entries:
+        gmt_time = datetime.strptime(entry.published, "%a, %d %b %Y %H:%M:%S %Z")
+        ist_date_time_str = convert_gmt_to_ist(gmt_time)
 
-                gmt_time = datetime.strptime(entry.published, "%a, %d %b %Y %H:%M:%S %Z")
-                ist_date_time_str = convert_gmt_to_ist(gmt_time)
+        selected_country_name = next(
+            (c['name'] for c in configure['countries'] if c['gl'] == country), None)
 
-                selected_country_name = next(
-                    (c['name'] for c in configure['countries'] if c['gl'] == country), None)
-
-                processed_results.append({
-                    'news_url': content_url,
-                    'news_text': entry.title,
-                    'published_date_time_gmt': gmt_time,
-                    'published_date_time_ist': ist_date_time_str + ' IST',
-                    'category': category if category else "All News",
-                    'country': selected_country_name,
-                    'post_on_x': POST_ON_X_URL
-                })
+        processed_results.append({
+            'news_url': entry.link, #content_url,
+            'news_text': entry.title,
+            'published_date_time_gmt': gmt_time,
+            'published_date_time_ist': ist_date_time_str + ' IST',
+            'category': category if category else "All News",
+            'country': selected_country_name,
+            'post_on_x': POST_ON_X_URL
+        })
 
     return processed_results, configure
 

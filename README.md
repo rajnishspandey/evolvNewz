@@ -12,3 +12,6 @@
 
 > beta release 1.3.6
 >>  improved performance of the code
+
+> beta release 1.4.0
+>>  reverted the code changes for ebtry.link
