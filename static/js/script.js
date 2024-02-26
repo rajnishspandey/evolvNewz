@@ -42,9 +42,27 @@ function validateForm() {
   return isValid;
 }
 
-// shaer button
-    // Initialize tooltip for the share link
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    });
+// welcome mesage
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Check if the welcome message has already been displayed
+  if (!document.cookie.includes("visited=true") && !sessionStorage.getItem('welcomeMessageDisplayed')) {
+      // Create the welcome message element
+      var welcomeMessage = document.createElement('div');
+      welcomeMessage.className = 'alert alert-info alert-dismissible fade show';
+      welcomeMessage.innerHTML = '<b>Welcome to our beta release testing program! Please give us your feedback. </b><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+
+      // Append the element to the container
+      var container = document.getElementById('welcome-message-container');
+
+      if (container) {
+          container.appendChild(welcomeMessage);
+      }
+
+      // Set a cookie to track the user's visit
+      document.cookie = "visited=true; max-age=604800"; // Expires in 1 week
+
+      // Set a session storage flag to indicate that the welcome message has been displayed
+      sessionStorage.setItem('welcomeMessageDisplayed', 'true');
+  }
+});

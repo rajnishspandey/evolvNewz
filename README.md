@@ -15,3 +15,7 @@
 
 > beta release 1.4.0
 >>  reverted the code changes for ebtry.link
+
+> beta release 1.4.1
+>>  Updated html head for getting title description and logo on sharing
+>>  added welcome message for first time visitor in a week

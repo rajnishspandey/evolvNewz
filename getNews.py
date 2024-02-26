@@ -23,16 +23,6 @@ def get_location():
 
     return location_data
 
-def fetch_content(article_url, session):
-    try:
-        with session.get(article_url, timeout=5) as content_response:
-            if content_response.status_code == 200:
-                return content_response.url
-    except Exception as e:
-        pass
-
-    return article_url
-
 def getResult():
     with open(JSON_PATH, 'r') as file:
         configure = json.load(file)
@@ -57,16 +47,6 @@ def getResult():
     # print(rss_feed_url)
     processed_results = []
 
-    # Use a session for connection reuse
-    # with requests.Session() as session:
-    #     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-    #         futures = [executor.submit(fetch_content, entry.link, session) for entry in feed.entries]
-
-            # for entry, future in zip(feed.entries, concurrent.futures.as_completed(futures)):
-            #     try:
-            #         content_url = future.result()
-            #     except Exception as e:
-            #         content_url = entry.link
     for entry in feed.entries:
         gmt_time = datetime.strptime(entry.published, "%a, %d %b %Y %H:%M:%S %Z")
         ist_date_time_str = convert_gmt_to_ist(gmt_time)
