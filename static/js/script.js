@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Create the welcome message element
       var welcomeMessage = document.createElement('div');
       welcomeMessage.className = 'alert alert-info alert-dismissible fade show';
-      welcomeMessage.innerHTML = '<b>Welcome to our beta release testing program! Please give us your feedback. </b><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+      welcomeMessage.innerHTML = '<b>Welcome to our beta release testing program! Please give us your feedback.</b><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
 
       // Append the element to the container
       var container = document.getElementById('welcome-message-container');
