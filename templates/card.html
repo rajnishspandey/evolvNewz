@@ -15,7 +15,7 @@
                 <small class="text-muted">{{ result.published_date_time_ist }}</small>
                 <div>
                     <a href="{{ result.news_url }}" target="_blank" class="btn btn-dark btn-sm mr-2 mb-2 mb-sm-0">Read More</a>
-                    <a href="{{ result.post_on_x }}{{ result.news_text|urlencode }}{{ request.url }}" target="_blank" class="btn btn-dark btn-sm mr-2 mb-2 mb-sm-0">Post on X</a>
+                    <a href="{{ result.post_on_x }}{{ result.news_text|urlencode }}%0A{{ request.url }}" target="_blank" class="btn btn-dark btn-sm mr-2 mb-2 mb-sm-0">Post on X</a>
                 </div>
             </div>
         </div>
