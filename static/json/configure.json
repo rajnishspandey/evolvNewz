@@ -1,6 +1,5 @@
 {
     "countries": [
-      {"name": "My Country" , "hl":"", "gl": "", "en":""},
       {"name": "India" , "hl":"en", "gl": "IN", "en":"en"},
       {"name": "USA","hl":"en", "gl": "US", "en":"en"},
       {"name": "United Kingdom", "hl":"en", "gl": "GB", "en":"en"},
