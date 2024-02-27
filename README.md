@@ -19,3 +19,6 @@
 > beta release 1.4.1
 >>  Updated html head for getting title description and logo on sharing
 >>  added welcome message for first time visitor in a week
+
+> beta release 1.5.0
+>>  Updated logo and favicon and also changed the logic for getting rss feed.
