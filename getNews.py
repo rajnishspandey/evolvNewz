@@ -12,24 +12,24 @@ import requests
 
 ssl_context = ssl._create_unverified_context()
 
-def get_location():
-    with urllib.request.urlopen(GEO_LOCATION, context=ssl_context) as url:
-        geo_data = json.loads(url.read().decode())
+# def get_location():
+    # with urllib.request.urlopen(GEO_LOCATION, context=ssl_context) as url:
+    #     geo_data = json.loads(url.read().decode())
 
-    location_data = {
-        "country_code": geo_data.get('country_code'),
-        "country_name": geo_data.get('country_name'),
-    }
+    # location_data = {
+    #     "country_code": geo_data.get('country_code'),
+    #     "country_name": geo_data.get('country_name'),
+    # }
 
-    return location_data
+    # return location_data
 
 def getResult():
     with open(JSON_PATH, 'r') as file:
         configure = json.load(file)
 
-    geo_location = get_location()
-    geo_country_code = geo_location.get('country_code')
-    country = request.form.get('cnt', request.args.get('cnt', geo_country_code))
+    # geo_location = get_location()
+    # geo_country_code = geo_location.get('country_code')
+    country = request.form.get('cnt', None)
     category = request.form.get('ctgry', request.args.get('ctgry', None))
     encoded_category = quote(category, safe='') if category else ''
     base_url = BASE_URL
@@ -44,7 +44,7 @@ def getResult():
         base_url
     )
     feed = feedparser.parse(rss_feed_url)
-    # print(rss_feed_url)
+    print(rss_feed_url)
     processed_results = []
 
     for entry in feed.entries:
