@@ -4,31 +4,15 @@ from urllib.parse import quote
 from datetime import datetime
 from validate import convert_gmt_to_ist
 from string_literals import JSON_PATH, BASE_URL, POST_ON_X_URL, GEO_LOCATION
-import urllib.request
 import json
 import ssl
-import requests
-# import concurrent.futures
 
 ssl_context = ssl._create_unverified_context()
-
-# def get_location():
-    # with urllib.request.urlopen(GEO_LOCATION, context=ssl_context) as url:
-    #     geo_data = json.loads(url.read().decode())
-
-    # location_data = {
-    #     "country_code": geo_data.get('country_code'),
-    #     "country_name": geo_data.get('country_name'),
-    # }
-
-    # return location_data
 
 def getResult():
     with open(JSON_PATH, 'r') as file:
         configure = json.load(file)
 
-    # geo_location = get_location()
-    # geo_country_code = geo_location.get('country_code')
     country = request.form.get('cnt', None)
     category = request.form.get('ctgry', request.args.get('ctgry', None))
     encoded_category = quote(category, safe='') if category else ''
@@ -55,7 +39,7 @@ def getResult():
             (c['name'] for c in configure['countries'] if c['gl'] == country), None)
 
         processed_results.append({
-            'news_url': entry.link, #content_url,
+            'news_url': entry.link,
             'news_text': entry.title,
             'published_date_time_gmt': gmt_time,
             'published_date_time_ist': ist_date_time_str + ' IST',

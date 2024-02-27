@@ -22,3 +22,6 @@
 
 > beta release 1.5.0
 >>  Updated logo and favicon and also changed the logic for getting rss feed.
+
+> beta release 1.5.1
+>>  updated json file .. removed my country
