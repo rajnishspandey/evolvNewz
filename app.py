@@ -3,22 +3,21 @@ from string_literals import *
 from validate import is_valid_input, send_email
 import secrets
 from flask.helpers import get_flashed_messages 
-from getNews import getResult, getNewsProcessed
+from getNews import getResult, getNewsSorted,getSelectedCountry,getTrends
 
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
-    processed_results,configure = getResult()
-    # Sort the processed_results by published date in descending order
-    processed_results = getNewsProcessed(processed_results)
     
-    flash_messages = []  # Initialize an empty list
+    processed_results,configure = getResult(selected_country=getSelectedCountry())
+    # Sort the processed_results by published date in descending order
+    processed_results = getNewsSorted(processed_results[:4])
 
+    trending_topics = getTrends(getSelectedCountry())
+    flash_messages = []  # Initialize an empty list
     # Check if there are flash messages
     flash_messages = get_flashed_messages(category_filter=['success'])
 
@@ -26,7 +25,8 @@ def index():
                            processed_results=processed_results, 
                            configure=configure,
                            title=INDEX_TITLE,
-                           flash_messages=flash_messages
+                           flash_messages=flash_messages,
+                           trending_topics = trending_topics
                            )
 
 
@@ -49,6 +49,38 @@ def feedback():
 
     return render_template('feedback.html', title=FEEDBACK_TITLE)
 
+@app.route('/trending/<title>')
+def trending_detail(title):
+    trend = next((t for t in getTrends('') if t['title'] == title), None)
+  
+    # Pass the clicked trending topic to getResult
+    processed_results, configure = getResult(trending_category=title)
+    
+    # Sort the processed_results by published date in descending order
+    processed_results = getNewsSorted(processed_results)
+
+    return render_template('trending_detail.html', 
+                           trend=trend,
+                           processed_results=processed_results, 
+                           configure=configure,
+                           title=TRENDING_TITLE,
+                           )
+
+
+@app.route('/category/<category_name>')
+def category_detail(category_name):
+    # Use getResult function to get news articles for the selected category
+    processed_results, configure = getResult(selected_category=category_name)
+
+    # Sort the processed_results by published date in descending order
+    processed_results = getNewsSorted(processed_results)
+
+    return render_template('category_detail.html', 
+                           processed_results=processed_results, 
+                           configure=configure,
+                           title=f"{category_name} - {getSelectedCountry()}",
+                           )
+    
 # Custom error handler for 404 Not Found
 # Custom error handler for both 404 Not Found and 500 Internal Server Error
 @app.errorhandler(404)
@@ -63,10 +95,5 @@ def error_handler(error):
 
     return render_template('error.html', error_title=error_title, error_message=error_message , title=ERROR_TITLE), error.code
 
-@app.route('/simulate_error')
-def simulate_error():
-    # Simulate a situation where an error occurs (e.g., division by zero)
-    result = 1 / 0  # This will raise a ZeroDivisionError
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)
+    app.run(host='0.0.0.0', debug=True)

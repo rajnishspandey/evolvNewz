@@ -25,3 +25,6 @@
 
 > beta release 1.5.1
 >>  updated json file .. removed my country
+
+> beta release 2.0.01
+>>  changed entire website ui and functionality
