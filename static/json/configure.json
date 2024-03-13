@@ -1,5 +1,6 @@
 {
     "countries": [
+      {"name": "Default" , "hl":"", "gl": "", "en":""},
       {"name": "India" , "hl":"en", "gl": "IN", "en":"en"},
       {"name": "USA","hl":"en", "gl": "US", "en":"en"},
       {"name": "United Kingdom", "hl":"en", "gl": "GB", "en":"en"},
@@ -8,14 +9,14 @@
       {"name": "Germany", "hl":"de","gl": "DE", "en":"de" },
       {"name": "Zimbabwe", "hl":"en","gl": "ZW", "en":"en" }
     ],
-    "category":[
-      {"name":"All News", "value": ""},
-      {"name": "Technology", "value": "Technology"},
-      {"name": "AI", "value": "AI"},
-      {"name": "Finance", "value": "Finance"},
-      {"name": "Sports", "value": "Sports"},
-      {"name": "Politics", "value": "Politics"},
-      {"name": "Business", "value": "Business"}
-    ]
+    "categories": [
+      {"name": "All-News", "value": "","image_name": "newspaper"},
+      {"name": "Technology", "value": "Technology", "image_name": "laptop"},
+      {"name": "Finance", "value": "Finance", "image_name": "laptop"},
+      {"name": "Sports", "value": "Sports", "image_name": "baseball-ball"},
+      {"name": "Politics", "value": "Politics", "image_name": "newspaper"},
+      {"name": "Business", "value": "Business", "image_name": "briefcase"},
+      {"name": "Entertainment", "value": "Entertainment", "image_name": "film"}
+  ]
   }
   

@@ -1,17 +1,7 @@
-<div id="welcome-message-container"></div>
-{% for message in flash_messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-{% endfor %}
-
-{% include 'category.html' %}
-
 <div class="container-fluid breakingNews">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
-            <h4 class="mb-1 text-primary">Breaking News</h4>
+            <h4 class="mb-1 text-primary">{{ trend.title }}</h4>
         </div>
         <div class="row g-4 justify-content-center">
             {% for result in processed_results %}
@@ -22,5 +12,3 @@
         </div>
     </div>
 </div>
-
-{% include 'trend.html' %}

@@ -1,23 +1,26 @@
-<!-- Body Content -->
-<div class="col mb-4">
-    <div class="card border-dark cardShadow">
-        <div class="card-header bg-dark text-white"> 
-            {% if result.country %}
-                <h5 class="mb-0">{{ result.category }} - {{ result.country }}</h5>
-            {% else %}
-            <h5 class="mb-0">{{ result.category }}</h5>
-            {% endif %}
-        </div>
-        <div class="card-body bg-light" style="border-radius: 5px;">
-            <p class="card-text cardContent">{{ result.news_text }}</p>
-            <p class="card-text cardContent">{{ result.news_content }}</p>
-            <div class="d-flex flex-wrap justify-content-between align-items-center mt-3">
-                <small class="text-muted">{{ result.published_date_time_ist }}</small>
-                <div>
-                    <a href="{{ result.news_url }}" target="_blank" class="btn btn-dark btn-sm mr-2 mb-2 mb-sm-0">Read More</a>
-                    <a href="{{ result.post_on_x }}{{ result.news_text|urlencode }}%0A{{ request.url }}" target="_blank" class="btn btn-dark btn-sm mr-2 mb-2 mb-sm-0">Post on X</a>
-                </div>
-            </div>
-        </div>
+<div class="breakingNews-item text-center rounded p-4">
+    <div class="breakingNews-icon d-inline-block rounded p-4 mb-4">
+        {% for category in configure.categories %}
+        {% if category.name == result.category %}
+            <i class="fas fa-{{ category.image_name }} fa-5x text-secondary"></i>
+        {% endif %}
+        {% endfor %}    
+    </div>
+
+    <div class="breakingNews-content">
+        {% if result.country %}
+        <h4 class="mb-4">{{ result.category }} - {{ result.country }}</h4>
+         {% else %}
+        <h4 class="mb-4">{{ result.category }}</h4>
+        {% endif %}
+        <strong><small class="text-muted">{{ result.published_date_time_ist }}</small>
+        </strong>
+        <p class="mb-4">
+            <span class="slicedContent">{{ result.news_text }}</span>
+            <span>
+                <a href="{{ result.news_url }}" class="spacing">Read More</a>
+            </span>
+        </p>
+        <a href="{{ result.post_on_x }}{{ result.news_text|urlencode }}%0A{{ request.url }}" target="_blank" class="btn btn-light rounded-pill text-primary py-2 px-4">Post on X</a>
     </div>
 </div>

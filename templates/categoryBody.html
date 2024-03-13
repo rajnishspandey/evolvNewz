@@ -1,0 +1,19 @@
+
+    {% if not trend %}
+        {% include 'category.html' %}
+    {% endif %}
+
+    <div class="container-fluid breakingNews">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
+                <h4 class="mb-1 text-primary">Breaking News</h4>
+            </div>
+            <div class="row g-4 justify-content-center">
+                {% for result in processed_results %}
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="{{ 0.1 }}s">
+                        {% include 'card.html' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>

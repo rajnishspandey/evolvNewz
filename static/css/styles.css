@@ -1,94 +1,346 @@
-@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Protest+Riot&display=swap');
 
-*{
-    box-sizing: border-box;
+/*** Spinner Start ***/
+/*** Spinner ***/
+#spinner {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s ease-out, visibility 0s linear .5s;
+  z-index: 99999;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding-top: 65px;
-    background-color: #eeeeea;
-    /* font-family: "Protest Riot", sans-serif; */
-    font-weight: 400;
-    font-style: normal;
-    letter-spacing: 1px;
+#spinner.show {
+  transition: opacity .5s ease-out, visibility 0s linear 0s;
+  visibility: visible;
+  opacity: 1;
 }
-
-.container {
-    flex: 1;
-    margin-top: 25px; 
-}
-
-footer {
-    background-color: #f2f2f2;
-    letter-spacing: 1px;
-    font-size: 14px;
-}
+/*** Spinner End ***/
 
 #top {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 10px;
-    z-index: 99;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 25px;
-  }
-  
-  .navbar-nav li a:hover {
-    display: table-caption;
-    background-color: #555;
-  } 
-
-  p.cardContent{
-    /* font-family: "PT Serif", serif; */
-    font-weight: 600;
-    font-style: normal;
-    letter-spacing: 1px;
-    font-size: 1.2rem;
-  }
-
-  /* .cardShadow{
-    background-color: beige; 
-    box-shadow: 4px 4px 8px 0 rgba(0,0,0,0.5);
-  }  */
-
-.logo{
-    color: white;
-    font-family: "PT Serif", serif;
-    font-style: normal;
-    letter-spacing: 1px;
-    font-size: 1.2rem;
-    box-shadow: 0px 1px 0px 0px yellow;
-    padding: 5px 5px 5px;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  display: flex;
+  width: 45px;
+  height: 45px;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  z-index: 99;
 }
 
-.cardShadow{
-    background-color: #eeeeea; 
-    box-shadow: 5px 5px;
+/*** Button Start ***/
+.btn {
+  font-weight: 600;
+  transition: .5s;
+}
+
+.btn-square {
+  width: 32px;
+  height: 32px;
+}
+
+.btn-sm-square {
+  width: 34px;
+  height: 34px;
+}
+
+.btn-md-square {
+  width: 44px;
+  height: 44px;
+}
+
+.btn-lg-square {
+  width: 56px;
+  height: 56px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-md-square,
+.btn-lg-square {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  border-radius: 50%;
+}
+
+.btn.btn-primary {
+  background: var(--bs-primary) !important;
+  color: var(--bs-white) !important;
+  font-weight: 400;
+  transition: 0.5s;
+}
+
+.btn.btn-primary:hover {
+  background: var(--bs-white) !important;
+  color: var(--bs-primary) !important;
+}
+
+.btn.btn-light {
+  background: var(--bs-light) !important;
+  color: var(--bs-primary) !important;
+  font-weight: 400;
+  transition: 0.5s;
+}
+
+.btn.btn-light:hover {
+  background: var(--bs-primary) !important;
+  color: var(--bs-light) !important;
+}
+
+
+.RotateMoveLeft {
+  position: relative;
+  animation: RotateMoveLeft 10s linear infinite;
+}
+
+.RotateMoveRight {
+  position: relative;
+  animation: RotateMoveLeft 10s linear infinite;
+}
+
+@keyframes RotateMoveLeft {
+  0%   {left: 0px;}
+  50%   {left: 40px;}
+  100%  {left: 0px;}
+}
+
+@keyframes RotateMoveRight {
+  0%   {right: 0px;}
+  50%   {right: 40px;}
+  100%  {right: 0px;}
+}
+
+
+/*** Navbar ***/
+.navbar-light .navbar-nav .nav-link {
+  margin-right: 25px;
+  padding: 35px 0;
+  color: var(--bs-dark) !important;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  transition: .5s;
+}
+
+.sticky-top.navbar-light .navbar-nav .nav-link {
+  padding: 20px 0;
+  color: var(--dark) !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+  color: var(--bs-primary) !important;
+}
+
+.navbar .dropdown-toggle::after {
+  border: none;
+  content: "\f107";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+@media (min-width: 1200px) {
+  .navbar .nav-item .dropdown-menu {
+      display: block;
+      visibility: hidden;
+      top: 100%;
+      transform: rotateX(-75deg);
+      transform-origin: 0% 0%;
+      border: 0;
+      border-radius: 10px;
+      transition: .5s;
+      opacity: 0;
+  }
+}
+
+.dropdown .dropdown-menu a:hover {
+  background: var(--bs-primary);
+  color: var(--bs-white);
+}
+
+.navbar .nav-item:hover .dropdown-menu {
+  transform: rotateX(0deg);
+  visibility: visible;
+  background: var(--bs-light) !important;
+  transition: .5s;
+  opacity: 1;
+}
+
+.collapse.navbar-collapse {
+  transition: 0.5s;
+}
+
+@media (max-width: 992px) {
+  .newsCategory {
+    padding-top: 30px !important;
   }
 
- @media (min-width: 768px) and (max-width:992px){
-    .cardShadow{
-        min-height: 250px;
-    }
- }
+  nav.bg-transparent {
+      position: absolute;
+      width: 100%;
+      background: transparent !important;
+  }
 
- @media (min-width: 992px){
-    .cardShadow{
-        min-height: 200px;
-    }
-    .navbar-nav li a {
-      margin-top: 0.5rem;
-    }
- }
+  .navbar.navbar-expand-lg button span {
+      position: relative;
+      z-index: 99;
+  }
 
+  .navbar {
+      position: relative;
+      background: var(--bs-light);
+      z-index: 2;
+  }
+
+  .sticky-top.navbar-light {
+      position: relative;
+      background: var(--bs-white) !important;
+      padding: 0 20px 20px 20px !important;
+  }
+
+  .sticky-top.navbar-light {
+      background: transparent;
+  }
+
+  nav.navbar {
+      padding: 0 30px 30px 0;
+  }
+
+  .navbar.navbar-expand-lg .navbar-toggler {
+      padding: 10px 20px;
+      border: 1px solid var(--bs-primary);
+      color: var(--bs-primary);
+  }
+
+  .navbar-light .navbar-collapse {
+      margin-top: 15px;
+      border-top: 1px solid #DDDDDD;
+  }
+
+  .navbar-light .navbar-nav .nav-link,
+  .sticky-top.navbar-light .navbar-nav .nav-link {
+      padding: 10px 0;
+      margin-left: 0;
+      color: var(--bs-dark) !important;
+  }
+
+}
+
+@media (min-width: 992px) {
+  .navbar-light {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: transparent !important;
+      z-index: 999;
+  }
+  
+  .sticky-top.navbar-light {
+      position: fixed;
+      background: #ffffff !important;
+  }
+}
+/*** Navbar End ***/
+
+
+/*** newsCategory Start ***/
+.newsCategory {
+  padding-top: 75px;
+  position: relative;
+}
+/*** newsCategory End ***/
+
+/*** breakingNews Start ***/
+.breakingNews .breakingNews-item {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.breakingNews .breakingNews-item,
+.breakingNews .breakingNews-item .breakingNews-icon,
+.breakingNews .breakingNews-item a {
+  transition: 0.5s;
+}
+
+.breakingNews .breakingNews-item:hover {
+  background: rgba(198, 194, 194, 0.09);
+  border: 1px ;
+}
+
+
+.breakingNews .breakingNews-item:hover .breakingNews-icon,
+.breakingNews .breakingNews-item:hover a {
+  background: var(--bs-white) !important;
+}
+
+.breakingNews .breakingNews-item:hover a:hover {
+  background: var(--bs-primary) !important;
+  color: var(--bs-white);
+}
+
+.spacing:hover {
+  box-shadow: none;
+}
+/*** breakingNews End ***/
+
+/*** Footer ***/
+.footer {
+  background: linear-gradient(rgba(6, 3, 21, .5), rgba(6, 3, 21, .5));
+  background-size: cover;
+}
+
+.footer .btn.btn-social {
+  margin-right: 5px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light);
+  border: 1px solid #FFFFFF;
+  border-radius: 35px;
+  transition: .3s;
+}
+
+.footer .btn.btn-social:hover {
+  color: var(--primary);
+}
+
+.footer .btn.btn-link {
+  display: block;
+  margin-bottom: 5px;
+  padding: 0;
+  text-align: left;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: normal;
+  text-transform: capitalize;
+  transition: .3s;
+}
+
+.footer .btn.btn-link::before {
+  position: relative;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+.footer .btn.btn-link:hover {
+  letter-spacing: 1px;
+  box-shadow: none;
+}
+
+.footer .copyright {
+  padding: 25px 0;
+  font-size: 15px;
+  border-top: 1px solid #ffffff;
+}
+
+.footer .copyright a {
+  color: var(--light);
+}
