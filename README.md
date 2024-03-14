@@ -28,3 +28,6 @@
 
 > beta release 2.0.01
 >>  changed entire website ui and functionality
+
+> beta release 2.1.0
+>>  added about us updated footer

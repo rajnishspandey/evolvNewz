@@ -80,6 +80,12 @@ def category_detail(category_name):
                            configure=configure,
                            title=f"{category_name} - {CATEGORY_TITLE}",
                            )
+
+@app.route('/about')
+def about():
+    return render_template('about.html', 
+                           title=ABOUT_TITLE,
+                           )
     
 # Custom error handler for 404 Not Found
 # Custom error handler for both 404 Not Found and 500 Internal Server Error
@@ -96,4 +102,4 @@ def error_handler(error):
     return render_template('error.html', error_title=error_title, error_message=error_message , title=ERROR_TITLE), error.code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)
+    app.run(host='0.0.0.0', debug=True)

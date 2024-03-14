@@ -1,12 +1,4 @@
 (function ($) {
-
-    const content = document.querySelectorAll(".slicedContent");
-    for(let i=0;i<content.length;i++){
-        const text = content[i].innerText;
-        const slicedText = text.slice(0, 50);
-        content[i].innerText = slicedText;
-    }
-
   // Spinner
   var spinner = function () {
       setTimeout(function () {
