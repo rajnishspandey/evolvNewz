@@ -1,6 +1,7 @@
 JSON_PATH = "static/json/configure.json"
 INDEX_TITLE = "EvolvNewz-Shortest News - Headlines across the world | Home"
 FEEDBACK_TITLE = "EvolvNewz-Shortest News - Headlines across the world | Feedback"
+ABOUT_TITLE = "EvolvNewz-Shortest News - Headlines across the world | About us"
 ERROR_TITLE = "EvolvNewz-Shortest News - Headlines across the world | Error"
 TRENDING_TITLE = "EvolvNewz-Shortest News - Headlines across the world | Trending"
 CATEGORY_TITLE = "EvolvNewz-Shortest News - Headlines across the world | Category"
