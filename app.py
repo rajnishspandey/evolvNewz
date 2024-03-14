@@ -78,7 +78,7 @@ def category_detail(category_name):
     return render_template('category_detail.html', 
                            processed_results=processed_results, 
                            configure=configure,
-                           title=f"{category_name} - {getSelectedCountry()}",
+                           title=f"{category_name} - {CATEGORY_TITLE}",
                            )
     
 # Custom error handler for 404 Not Found
