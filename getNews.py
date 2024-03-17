@@ -22,19 +22,19 @@ def getJsonData():
     return configure
 
 # country wise trends
-def getTrends(country):
-    trends_feed = (
-        f"{TREND_BASE_URL}?geo={country}" if country  else
-        TREND_BASE_URL
-        )
+def getTrends(country=None):
+    if country:
+        trends_feed = f"{TREND_BASE_URL}?geo={country}"
+    else:
+        trends_feed = TREND_BASE_URL
+    
     feed_data = feedparser.parse(trends_feed)
     trending_data = []
     for entry in feed_data.entries:
         trend = {
             'title': entry.title,
-            }
+        }
         trending_data.append(trend)
-
     return trending_data
 
 # get news data from google rss feed
