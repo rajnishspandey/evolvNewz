@@ -16,7 +16,7 @@ def index():
     # Sort the processed_results by published date in descending order
     processed_results = getNewsSorted(processed_results[:4])
 
-    trending_topics = getTrends(getSelectedCountry())
+    trending_topics = getTrends(country=getSelectedCountry())
     flash_messages = []  # Initialize an empty list
     # Check if there are flash messages
     flash_messages = get_flashed_messages(category_filter=['success'])
@@ -51,8 +51,6 @@ def feedback():
 
 @app.route('/trending/<title>')
 def trending_detail(title):
-    trend = next((t for t in getTrends('') if t['title'] == title), None)
-  
     # Pass the clicked trending topic to getResult
     processed_results, configure = getResult(trending_category=title)
     
@@ -60,7 +58,7 @@ def trending_detail(title):
     processed_results = getNewsSorted(processed_results)
 
     return render_template('trending_detail.html', 
-                           trend=trend,
+                           trend=title,
                            processed_results=processed_results, 
                            configure=configure,
                            title=TRENDING_TITLE,
@@ -102,4 +100,4 @@ def error_handler(error):
     return render_template('error.html', error_title=error_title, error_message=error_message , title=ERROR_TITLE), error.code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)
+    app.run(host='0.0.0.0', debug=True)
