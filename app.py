@@ -100,4 +100,4 @@ def error_handler(error):
     return render_template('error.html', error_title=error_title, error_message=error_message , title=ERROR_TITLE), error.code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=False)
