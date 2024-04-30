@@ -4,11 +4,18 @@ from validate import is_valid_input, send_email
 import secrets
 from flask.helpers import get_flashed_messages 
 from getNews import getResult, getNewsSorted,getSelectedCountry,getTrends
-
+from flask_caching import Cache
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+# Initialize Flask-Caching
+cache = Cache()
 
+# Add this line to your app configuration
+cache.init_app(app)
+
+# Modify your getResult function to use caching
+@cache.cached(timeout=3600, key_prefix='news_cache')
 @app.route('/', methods=['GET', 'POST'])
 def index():
     
