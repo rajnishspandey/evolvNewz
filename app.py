@@ -29,7 +29,6 @@ def index():
                            trending_topics = trending_topics
                            )
 
-
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
     if request.method == 'POST':

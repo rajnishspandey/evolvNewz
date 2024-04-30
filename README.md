@@ -31,3 +31,6 @@
 
 > beta release 2.1.0
 >>  added about us updated footer
+
+> beta release 2.2.0
+>>  updated the code to get the actual url instead of getting google rss link

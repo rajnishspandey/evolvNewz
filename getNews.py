@@ -1,4 +1,5 @@
 from flask import json, request
+import requests
 import feedparser
 from urllib.parse import quote
 from datetime import datetime
@@ -56,7 +57,7 @@ def getNewsFeed(encoded_category, country, category, language_param, trending_to
 
 # get the result based on country and category
 # Modify the getResult function to accept the trending_category parameter
-def getResult(trending_category=None, selected_category=None,selected_country=None):
+def getResult(trending_category=None, selected_category=None, selected_country=None):
     configure = getJsonData()
     country = selected_country or getSelectedCountry()
 
@@ -82,17 +83,30 @@ def getResult(trending_category=None, selected_category=None,selected_country=No
 
         selected_country_name = next((c['name'] for c in configure['countries'][1:] if c['gl'] == country), None)
         category_value = selected_category if selected_category else trending_category if trending_category else "All-News"
-        processed_results.append({
-            'news_url': entry.link,
-            'news_text': entry.title,
-            'published_date_time_gmt': gmt_time,
-            'published_date_time_ist': ist_date_time_str + ' IST',
-            'country': selected_country_name,
-            'category': category_value,
-            'post_on_x': POST_ON_X_URL,
-        })
+
+        # Extract the final destination URL
+        actual_url = get_final_destination_url(entry.link)
+
+        if actual_url:
+            processed_results.append({
+                'news_url': actual_url,
+                'news_text': entry.title,
+                'published_date_time_gmt': gmt_time,
+                'published_date_time_ist': ist_date_time_str + ' IST',
+                'country': selected_country_name,
+                'category': category_value,
+                'post_on_x': POST_ON_X_URL,
+            })
 
     return processed_results, configure
+
+def get_final_destination_url(url):
+    try:
+        response = requests.head(url, allow_redirects=True)
+        return response.url
+    except Exception as e:
+        print(f"Error fetching final destination URL for {url}: {e}")
+        return None
 
 # sorting of news based on published date in descending order
 def getNewsSorted(processed_results):
