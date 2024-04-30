@@ -1,44 +1,40 @@
-from flask import json, request
-import requests
+from flask import request
 import feedparser
 from urllib.parse import quote
 from datetime import datetime
 from validate import convert_gmt_to_ist
 from string_literals import JSON_PATH, BASE_URL, POST_ON_X_URL, TREND_BASE_URL
+import requests
 import json
 import ssl
 from concurrent.futures import ThreadPoolExecutor
+import time
 
 ssl_context = ssl._create_unverified_context()
 
 def getSelectedCountry():
-    country = request.form.get('cnt', None)
-    return country
+    return request.form.get('cnt', None)
 
 def getJsonData():
     with open(JSON_PATH, 'r') as file:
-        configure = json.load(file)
-    return configure
+        return json.load(file)
 
 def getTrends(country=None):
     trends_feed = f"{TREND_BASE_URL}?geo={country}" if country else TREND_BASE_URL
     feed_data = feedparser.parse(trends_feed)
-    trending_data = [{'title': entry.title} for entry in feed_data.entries]
-    return trending_data
+    return [{'title': entry.title} for entry in feed_data.entries]
 
-def getNewsFeed(encoded_category, country, category, language_param, trending_topic=None):
+def getNewsFeed(encoded_category, country, language_param, trending_topic=None):
     rss_feed_url = (
-        f"{BASE_URL}/search?q={encoded_category}" if not country and category else
-        f"{BASE_URL}?hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and not category else
-        f"{BASE_URL}/search?q={encoded_category}&hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if country and category else
-        BASE_URL
+        f"{BASE_URL}/search?q={encoded_category}" if not country else
+        f"{BASE_URL}?hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}" if not trending_topic else
+        f"{BASE_URL}/search?q={encoded_category}&hl={language_param}-{country}&gl={country}&ceid={country}:{language_param}"
     )
 
     if trending_topic:
         rss_feed_url += f"&q=%23{quote(trending_topic)}"
 
-    feed = feedparser.parse(rss_feed_url)
-    return feed
+    return feedparser.parse(rss_feed_url)
 
 def get_final_destination_url(url):
     try:
@@ -68,6 +64,7 @@ def process_entry(entry, configure, country, selected_category, trending_categor
         }
 
 def getResult(trending_category=None, selected_category=None, selected_country=None):
+    start_time = time.time()  # Start timing
     configure = getJsonData()
     country = selected_country or getSelectedCountry()
 
@@ -76,13 +73,19 @@ def getResult(trending_category=None, selected_category=None, selected_country=N
     selected_country = next((c for c in configure['countries'] if c['gl'] == country), None)
     language_param = selected_country.get('hl', 'en') if selected_country else 'en'
 
-    feed = getNewsFeed(encoded_category, country, encoded_category, language_param)
+    feed = getNewsFeed(encoded_category, country, language_param, trending_category)
 
     with ThreadPoolExecutor() as executor:
         processed_results = list(executor.map(process_entry, feed.entries, [configure]*len(feed.entries), [country]*len(feed.entries), [selected_category]*len(feed.entries), [trending_category]*len(feed.entries)))
 
+    end_time = time.time()  # End timing
+    print("Time taken for getResult:", end_time - start_time)  # Print execution time
+
     return [result for result in processed_results if result], configure
 
 def getNewsSorted(processed_results):
+    start_time = time.time()  # Start timing
     processed_results = sorted(processed_results, key=lambda x: x['published_date_time_gmt'], reverse=True)
+    end_time = time.time()  # End timing
+    print("Time taken for getNewsSorted:", end_time - start_time)  # Print execution time
     return processed_results
