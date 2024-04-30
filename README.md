@@ -34,3 +34,6 @@
 
 > beta release 2.2.0
 >>  updated the code to get the actual url instead of getting google rss link
+
+> beta release 2.2.1 30th Apr 2024
+>>  added parellel loading
