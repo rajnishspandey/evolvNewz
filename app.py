@@ -29,7 +29,6 @@ def index():
                            trending_topics = trending_topics
                            )
 
-
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
     if request.method == 'POST':
@@ -100,4 +99,8 @@ def error_handler(error):
     return render_template('error.html', error_title=error_title, error_message=error_message , title=ERROR_TITLE), error.code
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(host='0.0.0.0', debug=False)
+=======
+    app.run(host='0.0.0.0', debug=False)
+>>>>>>> d6d525c (beta release 2.2.0)
