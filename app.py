@@ -64,7 +64,7 @@ def trending_detail(title):
     processed_results, configure = getResult(trending_category=title)
     
     # Sort the processed_results by published date in descending order
-    processed_results = getNewsSorted(processed_results)
+    processed_results = getNewsSorted(processed_results[:20])
 
     return render_template('trending_detail.html', 
                            trend=title,
@@ -80,7 +80,7 @@ def category_detail(category_name):
     processed_results, configure = getResult(selected_category=category_name)
 
     # Sort the processed_results by published date in descending order
-    processed_results = getNewsSorted(processed_results)
+    processed_results = getNewsSorted(processed_results[:20])
 
     return render_template('category_detail.html', 
                            processed_results=processed_results, 
