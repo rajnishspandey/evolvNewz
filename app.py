@@ -15,7 +15,10 @@ cache = Cache()
 cache.init_app(app)
 
 # Modify your getResult function to use caching
-@cache.cached(timeout=3600, key_prefix='news_cache')
+@cache.memoize(timeout=3600)
+def get_cached_results(trending_category=None, selected_category=None, selected_country='IN'):
+    return getResult(trending_category, selected_category, selected_country)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     

@@ -7,3 +7,4 @@ flask_mail
 python-dotenv
 requests
 flask_caching
+futures
