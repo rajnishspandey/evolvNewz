@@ -45,7 +45,7 @@ each country has different categories as well.
 # Home Page
 ![image](https://github.com/user-attachments/assets/b9107e75-0dfb-4eeb-901e-d9d6e8d18acb)
 
-# All New Category (simliarly we can open other categories as well)
+# All News Category (simliarly we can open other categories as well)
 ![image](https://github.com/user-attachments/assets/76b463b3-8a20-495e-a32a-980acb2964e7)
 
 # Feedback
