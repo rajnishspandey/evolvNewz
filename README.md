@@ -1,4 +1,4 @@
-# evolvNewz
+# evolvNewz https://evolvnewz.onrender.com/
 This is a Flask project which is basically used to fetch the Latest News from Google rss feed based on the country and also it takes the google trends based on the selected country.
 each country has different categories as well.
 
