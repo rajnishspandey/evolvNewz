@@ -2,6 +2,8 @@
 This is a Flask project which is basically used to fetch the Latest News from Google rss feed based on the country and also it takes the google trends based on the selected country.
 each country has different categories as well.
 
+## feedback page has email functionality which will work only work when you add environment variable email and app password (you can create it from google security)
+
 >  beta release 1.3.3
 >>  auto detect the geolocation
 >>  based on the location news will be provided
@@ -40,3 +42,17 @@ each country has different categories as well.
 
 > beta release 2.2.1 30th Apr 2024
 >>  added parellel loading
+# Home Page
+![image](https://github.com/user-attachments/assets/b9107e75-0dfb-4eeb-901e-d9d6e8d18acb)
+
+# All New Category (simliarly we can open other categories as well)
+![image](https://github.com/user-attachments/assets/76b463b3-8a20-495e-a32a-980acb2964e7)
+
+# Feedback
+![image](https://github.com/user-attachments/assets/b1f3639a-26e4-423c-a8d3-532e0804a789)
+
+![image](https://github.com/user-attachments/assets/c7e0f5fe-e1ba-408b-8602-b0e6c29de102)
+
+# Error
+![image](https://github.com/user-attachments/assets/d88bbb31-7be8-4554-9e5d-1c5ded81e557)
+
