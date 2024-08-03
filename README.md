@@ -1,4 +1,7 @@
 # evolvNewz
+This is a Flask project which is basically used to fetch the Latest News from Google rss feed based on the country and also it takes the google trends based on the selected country.
+each country has different categories as well.
+
 >  beta release 1.3.3
 >>  auto detect the geolocation
 >>  based on the location news will be provided
