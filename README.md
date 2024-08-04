@@ -54,5 +54,6 @@ each country has different categories as well.
 ![image](https://github.com/user-attachments/assets/c7e0f5fe-e1ba-408b-8602-b0e6c29de102)
 
 # Error
-![image](https://github.com/user-attachments/assets/d88bbb31-7be8-4554-9e5d-1c5ded81e557)
+![image](https://github.com/user-attachments/assets/13073f55-a079-4af4-a855-fe15981983d8)
+
 
